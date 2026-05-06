@@ -1,4 +1,5 @@
 import "./globals.css";
+import AuthButton from "@/components/AuthButton";
 
 export const metadata = {
   title: "Neon Drum Machine",
@@ -8,7 +9,10 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className="antialiased">{children}</body>
+      <body className="antialiased">
+        <AuthButton />
+        {children}
+      </body>
     </html>
   );
 }
