@@ -2,8 +2,8 @@ import "./globals.css";
 import AuthButton from "@/components/AuthButton";
 
 export const metadata = {
-  title: "Neon Drum Machine",
-  description: "Client-side drum machine with Web Audio synthesis",
+  title: "Neon Beat Synth",
+  description: "Client-side drum machine and melody synth with Web Audio synthesis",
 };
 
 export default function RootLayout({ children }) {
