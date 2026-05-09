@@ -10,6 +10,7 @@ import {
   startSynthNote,
 } from "@/lib/synth";
 import PresetsPanel from "@/components/PresetsPanel";
+import CoachPanel from "@/components/CoachPanel";
 
 const STEPS = 8;
 const WHITE_KEY_INDICES = [0, 2, 4, 5, 7, 9, 11, 12];
@@ -308,10 +309,13 @@ export default function DrumMachine({ isAuthenticated = false }) {
       </header>
 
       {isAuthenticated && (
-        <PresetsPanel
-          getCurrentState={getCurrentState}
-          applyPreset={applyPreset}
-        />
+        <>
+          <PresetsPanel
+            getCurrentState={getCurrentState}
+            applyPreset={applyPreset}
+          />
+          <CoachPanel getCurrentState={getCurrentState} />
+        </>
       )}
 
       <section className="grid grid-cols-4 gap-4 w-full max-w-2xl">
