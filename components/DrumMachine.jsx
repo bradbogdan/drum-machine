@@ -314,7 +314,10 @@ export default function DrumMachine({ isAuthenticated = false }) {
             getCurrentState={getCurrentState}
             applyPreset={applyPreset}
           />
-          <CoachPanel getCurrentState={getCurrentState} />
+          <CoachPanel
+            getCurrentState={getCurrentState}
+            applyPreset={applyPreset}
+          />
         </>
       )}
 
