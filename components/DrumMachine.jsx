@@ -9,6 +9,7 @@ import {
   getCtx,
   startSynthNote,
 } from "@/lib/synth";
+import PresetsPanel from "@/components/PresetsPanel";
 
 const STEPS = 8;
 const WHITE_KEY_INDICES = [0, 2, 4, 5, 7, 9, 11, 12];
@@ -29,7 +30,7 @@ function emptyMelodyGrid() {
   return MELODY_NOTES.map(() => Array(STEPS).fill(false));
 }
 
-export default function DrumMachine() {
+export default function DrumMachine({ isAuthenticated = false }) {
   const [pulses, setPulses] = useState({});
   const [melodyPulses, setMelodyPulses] = useState({});
   const [grid, setGrid] = useState(emptyDrumGrid);
@@ -260,6 +261,35 @@ export default function DrumMachine() {
     setRecordStep(0);
   };
 
+  const getCurrentState = useCallback(
+    () => ({
+      bpm,
+      grid: gridRef.current,
+      melodyGrid: melodyGridRef.current,
+      synthWave: synthWaveRef.current,
+    }),
+    [bpm]
+  );
+
+  // Apply a loaded preset. Defensively coerce shapes so a malformed row can't crash playback.
+  const applyPreset = useCallback((preset) => {
+    setPlaying(false);
+    if (typeof preset.bpm === "number") setBpm(preset.bpm);
+    if (Array.isArray(preset.grid) && preset.grid.length === PADS.length) {
+      setGrid(preset.grid.map((r) => r.slice()));
+    }
+    if (
+      Array.isArray(preset.melodyGrid) &&
+      preset.melodyGrid.length === MELODY_NOTES.length
+    ) {
+      setMelodyGrid(preset.melodyGrid.map((r) => r.slice()));
+    }
+    if (SYNTH_WAVES.some((w) => w.id === preset.synthWave)) {
+      setSynthWave(preset.synthWave);
+    }
+    setRecordStep(0);
+  }, []);
+
   const displayStep = playing && currentStep >= 0 ? currentStep : recordStep;
   const melodyRows = MELODY_NOTES.map((note, noteIndex) => ({
     note,
@@ -276,6 +306,13 @@ export default function DrumMachine() {
           tap pads. play keys. sequence heat.
         </p>
       </header>
+
+      {isAuthenticated && (
+        <PresetsPanel
+          getCurrentState={getCurrentState}
+          applyPreset={applyPreset}
+        />
+      )}
 
       <section className="grid grid-cols-4 gap-4 w-full max-w-2xl">
         {PADS.map((pad, i) => {
