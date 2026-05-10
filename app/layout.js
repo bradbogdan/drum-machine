@@ -1,4 +1,5 @@
 import "./globals.css";
+import { Analytics } from "@vercel/analytics/next";
 import AuthButton from "@/components/AuthButton";
 
 export const metadata = {
@@ -12,6 +13,7 @@ export default function RootLayout({ children }) {
       <body className="antialiased">
         <AuthButton />
         {children}
+        <Analytics />
       </body>
     </html>
   );

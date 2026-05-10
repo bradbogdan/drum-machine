@@ -1,0 +1,61 @@
+{
+  "audit_date": "2026-05-10",
+  "rubric_version": "v1",
+  "repo_name": "drum-machine",
+  "archetype": "web-app-with-backend",
+  "archetype_evidence": [
+    "next.config.mjs",
+    "app/actions/coach.js",
+    "app/actions/presets.js",
+    "app/auth/callback/route.js",
+    "middleware.js"
+  ],
+  "scores": {
+    "dev_agent": 3.6,
+    "consumer_agent": 1.9
+  },
+  "checks": {
+    "F1": {"score": 1, "weight": 3, "evidence": "README.md 26 lines, no architecture section"},
+    "F2": {"score": 2, "weight": 3, "evidence": "CLAUDE.md 32 lines + AGENTS.md symlink, current"},
+    "F3": {"score": 1, "weight": 4, "evidence": ".gitignore line 6 excludes .env*; no .env.example committed"},
+    "F4": {"score": 0, "weight": 1, "evidence": "no LICENSE, no license field in package.json"},
+    "F5": {"score": 2, "weight": 3, "evidence": "CLAUDE.md states quality gate is `next build`"},
+    "F6": {"score": 1, "weight": 2, "evidence": "package-lock.json present; no engines field, no .nvmrc"},
+    "F7": {"score": 2, "weight": 1, "evidence": "7 commits in last 90 days with descriptive subjects"},
+    "F8": {"score": 1, "weight": 2, "evidence": "standard Next.js layout; no nested AGENTS.md, no module index"},
+    "D1": {"score": 0, "weight": 4, "evidence": "plain JS, no tsconfig.json, no @ts-check, no JSDoc on exports"},
+    "D2": {"score": 0, "weight": 3, "evidence": "only root CLAUDE.md/AGENTS.md exist"},
+    "D3": {"score": 0, "weight": 3, "evidence": "lib/synth.js 340 lines 0 comments, DrumMachine.jsx 626 lines 1 comment"},
+    "D4": {"score": 1, "weight": 1, "evidence": "no test files; CLAUDE.md acknowledges absence; smoke = next build"},
+    "D5": {"score": 0, "weight": 2, "evidence": "no eslint or prettier config"},
+    "D6": {"score": 0, "weight": 2, "evidence": "no .github/workflows"},
+    "D7": {"score": 0, "weight": 3, "evidence": "no ARCHITECTURE.md or docs/architecture"},
+    "D8": {"score": 0, "weight": 1, "evidence": "no docs/decisions or docs/adr"},
+    "D9": {"score": 0, "weight": 1, "evidence": "no docs/troubleshooting.md"},
+    "D10": {"score": 2, "weight": 1, "evidence": "CLAUDE.md references all verified present"},
+    "C1": {"score": 1, "weight": 5, "evidence": "server actions in app/actions/ exist but not externally callable"},
+    "C2": {"score": 0, "weight": 4, "evidence": "no openapi.yaml, no proto, no graphql schema"},
+    "C3": {"score": 0, "weight": 3, "evidence": "no mcp-server folder, no *.mcp file"},
+    "C4": {"score": 0, "weight": 2, "evidence": "no public/llms.txt, no .well-known, no robots.txt"},
+    "C5": {"score": 0, "weight": 3, "evidence": "Supabase OAuth only; no PAT or API-key issuance"},
+    "C6": {"score": 0, "weight": 2, "evidence": "server actions return ad-hoc objects"},
+    "C7": {"score": 0, "weight": 2, "evidence": "no Idempotency-Key handling"},
+    "C8": {"score": 0, "weight": 1, "evidence": "coach action is synchronous OpenAI call"},
+    "C9": {"score": 1, "weight": 2, "evidence": "lib/coach/generate-schema.js exists but not published as JSON Schema"},
+    "C10": {"score": 0, "weight": 1, "evidence": "no /v1/ in routes, no version header"},
+    "C11": {"score": 0, "weight": 2, "evidence": "grep aria-label/data-testid/role= across components/ and app/ returns 2 matches total"},
+    "C12": {"score": 0, "weight": 1, "evidence": "no rate limiter"}
+  },
+  "top_fixes": [
+    {"id": 1, "title": "Write docs/ARCHITECTURE.md and add module index to AGENTS.md", "axis": "dev", "effort": "S", "score_delta": 1.0},
+    {"id": 2, "title": "Add JSDoc and // @ts-check to lib/synth.js and lib/coach/*", "axis": "dev", "effort": "M", "score_delta": 1.5},
+    {"id": 3, "title": "Add per-folder CLAUDE.md + AGENTS.md symlink in lib, components, app/actions, docs", "axis": "dev", "effort": "S", "score_delta": 0.8},
+    {"id": 4, "title": "Commit .env.example with documented keys", "axis": "both", "effort": "S", "score_delta": 0.5},
+    {"id": 5, "title": "Add aria-label/data-testid on UI controls and publish docs/pattern.schema.json", "axis": "consumer", "effort": "M", "score_delta": 1.5}
+  ],
+  "stats": {
+    "loc_source": 1978,
+    "commits_90d": 7,
+    "last_commit_date": "2026-05-09"
+  }
+}
